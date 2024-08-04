@@ -14,7 +14,7 @@ The basic project structure is as follows:
 ```bash
 root/
  |-- configs/
- |   |-- etl_config.json
+ |   |-- etl_config_old.json
  |-- dependencies/
  |   |-- logging.py
  |   |-- spark.py
@@ -78,7 +78,7 @@ $SPARK_HOME/bin/spark-submit \
 --master local[*] \
 --packages 'com.somesparkjar.dependency:1.0.0' \
 --py-files packages.zip \
---files configs/etl_config.json \
+--files configs/etl_config_old.json \
 jobs/etl_job.py
 ```
 
@@ -150,7 +150,7 @@ For example, the following code snippet,
 spark, log, config = start_spark(
     app_name='my_etl_job',
     jar_packages=['com.somesparkjar.dependency:1.0.0'],
-    files=['configs/etl_config.json'])
+    files=['configs/etl_config_old.json'])
 ```
 
 Will use the arguments provided to `start_spark` to setup the Spark job if executed from an interactive console session or debugger, but will look for the same arguments sent via `spark-submit` if that is how the job has been executed.

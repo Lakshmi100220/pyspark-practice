@@ -58,14 +58,17 @@ def start_spark(app_name='my_spark_app', master='local[*]', jar_packages=[],
     # detect execution environment
     flag_repl = not(hasattr(__main__, '__file__'))
     flag_debug = 'DEBUG' in environ.keys()
-
+    flag_repl= True
+    flag_debug= True
     if not (flag_repl or flag_debug):
+        # print("inside_flag_repl")
         # get Spark session factory
         spark_builder = (
             SparkSession
             .builder
             .appName(app_name))
     else:
+        # print("inside dumy")
         # get Spark session factory
         spark_builder = (
             SparkSession
@@ -79,7 +82,7 @@ def start_spark(app_name='my_spark_app', master='local[*]', jar_packages=[],
 
         spark_files = ','.join(list(files))
         spark_builder.config('spark.files', spark_files)
-
+        # print(spark_files)
         # add other config params
         for key, val in spark_config.items():
             spark_builder.config(key, val)
@@ -90,6 +93,7 @@ def start_spark(app_name='my_spark_app', master='local[*]', jar_packages=[],
 
     # get config file if sent to cluster with --files
     spark_files_dir = SparkFiles.getRootDirectory()
+    # print(spark_files_dir)
     config_files = [filename
                     for filename in listdir(spark_files_dir)
                     if filename.endswith('config.json')]
